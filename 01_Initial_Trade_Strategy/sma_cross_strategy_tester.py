@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import os
 from copy import deepcopy
 import streamlit as st
 import quantstats as qs
@@ -41,7 +42,9 @@ def load_data(start, end, symbol, time_frame):
     start = pd.to_datetime(start).tz_localize("UTC")
     end = pd.to_datetime(end).tz_localize("UTC")
     #load_data
-    data_df = pd.read_pickle(f'./Data/{symbol}_{time_frame}.pkl')
+    base_path = os.path.dirname(__file__)  # directory of current script
+    file_path = os.path.join(base_path, "Data", f"{symbol}_{time_frame}.pkl")
+    data_df = pd.read_pickle(file_path)
     data_df = data_df.reset_index()
     data_df = data_df[(data_df.time>=start)&(data_df.time<end)]
     data_df = data_df.reset_index().drop(columns=['index'])
@@ -218,3 +221,4 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
