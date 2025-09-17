@@ -1,0 +1,131 @@
+import pandas as pd
+
+
+#if stop loss formular, write
+
+#if take profit formular, write
+
+
+def process_signal(df:pd.DataFrame, trade_signal):
+    df['sma_signal'] = df.apply(trade_signal, axis=1)
+    return df
+
+
+class Trade:
+    def __init__(self, row):
+        self.running = True
+        self.symbol = row.symbol
+        self.sma_signal = row.sma_signal
+        self.open_price = row.next_open
+
+        self.end_time = None
+        self.start_time = row.open_date
+
+    def close_trade(self, row, trigger_price):
+        self.running = False
+        self.end_time = row.open_date
+        self.close_price = trigger_price
+
+        if self.sma_signal == 'BUY':
+            self.price_difference = self.close_price - self.open_price
+        elif self.sma_signal == 'SELL':
+            self.price_difference = self.open_price - self.close_price
+
+        self.result = 'PROFIT' if self.price_difference > 0 else 'LOSS'
+
+  
+    def update_trade(self, row):
+        if self.sma_signal == 'BUY' and row.sma_signal == 'SELL':
+            self.close_trade(row, row.next_open)
+            return 'FLIP'
+           
+        elif self.sma_signal == 'SELL' and row.sma_signal == 'BUY':
+            self.close_trade(row, row.next_open)
+            return 'FLIP'
+        return None
+           
+
+
+class StrategyTester:
+
+    def __init__(self, df:pd.DataFrame, trade_signal,  risk_percent):
+            self.data = df.copy()
+            self.trade_signal = trade_signal
+            self.risk_percent = risk_percent
+
+            self.initial_amount = 100000
+            self.amount = self.initial_amount
+            self.units = 0
+
+            self.realised_pnl = []
+            self.closed_trades = []
+            self.open_trade = None
+
+            self.prepare_data()
+
+    def prepare_data(self):
+        print('preparing data...')
+
+        self.data = process_signal(self.data, 
+                        self.trade_signal)
+        
+    def calculate_risk_amount(self):
+        self.risk_amount = self.risk_percent * self.amount
+
+    def calculate_unit(self,row):
+        self.calculate_risk_amount()
+        self.units = self.risk_amount/row.next_open
+
+    def calculate_returns(self,realised_pnl, starting_balance):
+        self.returns = realised_pnl/starting_balance
+
+    def update_account_balance(self, obj):
+        self.amount += self.units * obj.price_difference
+
+    def run_test(self):
+        print('run_test...')
+
+        for _, row in self.data.iterrows():
+            if self.open_trade:
+                action = self.open_trade.update_trade(row)
+
+                if not self.open_trade.running: #if trade is closed
+                    realised_pnl = self.units * self.open_trade.price_difference
+                    starting_balance = self.amount
+                    self.calculate_returns(realised_pnl,starting_balance)
+                    self.update_account_balance(self.open_trade)
+                    
+                    self.open_trade.account_balance = round(self.amount,2)
+                    self.open_trade.realised_pnl = round(realised_pnl,2)
+                    self.open_trade.returns = round(self.returns,5)
+                    pnl_list.append(round(realised_pnl,2))
+                    self.open_trade.running_pnl = pnl_list
+                    self.closed_trades.append(self.open_trade)
+                    
+                    if action == 'FLIP':
+                        # immediately open the opposite trade
+                        self.calculate_unit(row)
+                        self.open_trade = Trade(row)
+                        self.open_trade.risk_amount = round(self.risk_amount,2)
+                        pnl_list = []
+        
+                else:
+                    if self.open_trade.sma_signal == 'BUY':
+                        unrealised_pnl = self.units * (row.close - self.open_trade.open_price)
+                        
+                    else:
+                        unrealised_pnl = self.units * (self.open_trade.open_price - row.close)
+                    pnl_list.append(round(unrealised_pnl,2))
+                #print(pnl_list)
+            else:
+                # flat, no open trade
+                if row.sma_signal in ['BUY', 'SELL']:
+                    self.calculate_unit(row)
+                    self.open_trade = Trade(row)
+                    self.open_trade.risk_amount = round(self.risk_amount,2)
+                    pnl_list = []
+
+          # results DataFrame
+        #self.df_results = pd.DataFrame([vars(t) for t in self.closed_trades])
+        self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
+        return self.df_results
