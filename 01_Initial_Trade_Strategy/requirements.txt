@@ -6,3 +6,6 @@ python_dateutil==2.9.0.post0
 quantstats==0.0.77
 Requests==2.32.5
 streamlit==1.49.1
+ipython
+
+
