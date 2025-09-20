@@ -59,7 +59,7 @@ def run_strategy(symbol, start, end, time_frame='15Min',risk_percent=0.5, fast_s
     return data, st.df_results
 
 
-def calculate_statistics(returns, data, currency='$'):
+def calculate_statistics(returns, data, currency='£'):
     stats = {
         'Sharpe Ratio': round(qs.stats.sharpe(returns, periods=365), 4),
         'Annualized Return': round(qs.stats.cagr(returns, periods=365), 4),
@@ -227,6 +227,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
