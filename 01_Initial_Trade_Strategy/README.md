@@ -7,14 +7,17 @@ As first input parameters for the trading system, we choose 5 bars for the fast 
 <img width="1916" height="943" alt="image" src="https://github.com/user-attachments/assets/17e83b90-dbd9-441b-bc33-4143dcf7b6fe" />
 
 
-The equity line of this strategy looks like a manageable starting point for a viable trading system. There are large drawdowns evident at specific points and time, although the system recovers steadily, resulting in the steady growth of the initial capital. The figure below reveals the somewhat profitable nature of the strategy. A total netprofit amount of £2,357.78 from mid 2022 to mid 2025. This is a fairly profitable strategy where the average risk amount for every trade is £5000 (5% of equity) with a starting account balance of £100,000. The biggest drawdown (on an account balance basis) within this period was -0.0238 (-2.38% of total account balance which equals £2,380). With a starting capital of £100,000, and 5% invested in each trade, we achieved 2.4% over the test horizon. This makes it a conservative but positive-expectancy system, and a foundation that could potentially be enhanced with position sizing adjustments, diversification, or strategy refinements. A note of worry is definitely a maximum drawdown amount equating to the total return.
+The equity line of this strategy looks like a manageable starting point for a viable trading system. There are large drawdowns evident at specific points and time, although the system recovers steadily, resulting in the steady growth of the initial capital. The figure below reveals the somewhat profitable nature of the strategy. A total net profit amount of £2,357.78 from mid-2022 to mid-2025. This is a fairly profitable strategy where the average risk amount for every trade is £5000 (5% of equity) with a starting account balance of £100,000. The biggest drawdown (on an account balance basis) within this period was -0.0238 (-2.38% of total account balance, which equals £2,380). With a starting capital of £100,000, and 5% invested in each trade, we achieved 2.4% over the test horizon. This makes it a conservative but positive-expectancy system, and a foundation that could potentially be enhanced with position sizing adjustments, diversification, or strategy refinements. A note of worry is definitely a maximum drawdown amount equating to the total return.
 
-<img width="1583" height="922" alt="image" src="https://github.com/user-attachments/assets/6a911d57-740c-4fbf-a1a9-13b10697f0e4" />
+<img width="1477" height="922" alt="image" src="https://github.com/user-attachments/assets/da7be525-f19e-4a99-8667-91b43ddc36ec" />
+
 
 
 The diagram above shows the main properties of the trend following strategy:
 
-1. The total percentage of profitable trades is 39%
+1. The total percentage of profitable trades is 39%, which is low. From a total of 443 trades taken, 172 trades came out profitable, whereas the majority (271) ended in a loss.
+2. The average trade ratio, which divides the average win by the average loss is high (1.7807). The average winning trade is £102.81, which is bigger than the average losing trade of £57.734.
+3. The average time i
 
 
 
