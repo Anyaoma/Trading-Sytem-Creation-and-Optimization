@@ -26,7 +26,9 @@ In terms of the total number of trades taken on both sides, they are nearly the 
 
 The strategy only produces a total number of 443 trades, which might indicate that the probability of achieving profitable results just by accident is high because of few number of trades taken (although the test period can be increased to achieve more trades) . Total trades around 2000+ might suffice to indicate future performance.
 
-So far, statistics show that the entry logic would need a bit of tweaking. The probability of maintaining similar performance or behaviour in the future isn't that high. Additionally, the the average profit per trade is only £
+So far, statistics show that the entry logic would need a bit of tweaking. The probability of maintaining similar performance or behaviour in the future isn't that high. Additionally, the average profit per trade (Average Trade Net Profit) is only £5.32; this level of average profit per trade, without accounting for commission and slippage (trade cost), is very low. So at the moment, we just have a trading rule that detects a tiny profitable bias in prices.
+
+The trading strategy still needs to be optimised to work out a complete trading system. The probability of the strategy needs to be increased, and exits need to be added. Additionally, trading costs need to be put into consideration to make the whole approach more realistic. This will be done in the next section ().
 
 
 
