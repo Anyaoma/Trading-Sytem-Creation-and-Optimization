@@ -112,7 +112,7 @@ if __name__ == '__main__':
     # Define the part of the sidebar used for tuning the details of the technical analysis
     st.sidebar.header("Technical Analysis Parameters")
     SMA_CROSSOVER_PLUS_BREAKOUT_FILTER = st.sidebar.checkbox(label="Add Breakout Filter", value=True)
-    SMA_CROSSOVER_PLUS_BREAKOUT_FILTER = True
+    #SMA_CROSSOVER_PLUS_BREAKOUT_FILTER = True
 
     # Add the expander with parameters of the SMA
     fast_sma = st.sidebar.expander("FAST SMA")
@@ -227,6 +227,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
