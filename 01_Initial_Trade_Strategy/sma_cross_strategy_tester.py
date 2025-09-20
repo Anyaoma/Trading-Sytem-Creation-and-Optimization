@@ -214,11 +214,9 @@ if __name__ == '__main__':
     results_final = {}
     for signal in result_df.sma_signal.unique():
         new_df = result_df[(result_df['sma_signal'] == signal)] 
-        new_ret = new_df['returns']
-        new_ret.index = pd.to_datetime(new_df.start_time)
+        new_ret = pd.Series(new_df['returns'].values, index=pd.to_datetime(new_df['end_time']))
         results_final[signal] = calculate_statistics(new_ret, new_df)
-    data_return = result_df['returns']
-    data_return.index = pd.to_datetime(result_df.start_time)
+    data_return = pd.Series(result_df['returns'].values, index=pd.to_datetime(result_df['end_time']))
     results_final['ALL'] = calculate_statistics(data_return, result_df)
 
 
@@ -229,6 +227,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
