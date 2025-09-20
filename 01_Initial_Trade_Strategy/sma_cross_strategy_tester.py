@@ -59,32 +59,36 @@ def run_strategy(symbol, start, end, time_frame='15Min',risk_percent=0.5, fast_s
     return data, st.df_results
 
 
-def calculate_statistics(returns, data):
+def calculate_statistics(returns, data, currency='$'):
     stats = {
-        'Sharpe Ratio': qs.stats.sharpe(returns),
-        'Annualized Return': qs.stats.cagr(returns),
-        'Max Drawdown': qs.stats.max_drawdown(returns),
-        'Volatility': qs.stats.volatility(returns),
-        #'VaR': qs.stats.value_at_risk(returns),
-        #'CVaR': qs.stats.conditional_value_at_risk(returns),
-        'Total Number of Trades':len(data),
-        '%win': (data['realised_pnl'] > 0).mean(),
-        'Net Profit': data['realised_pnl'].sum(),
-        'Profit Factor':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum()/abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'),
-        'Average Trade Net Proft': data['realised_pnl'].mean(),
-        'Average Time in Trades': (data['end_time']- data['start_time']).mean().total_seconds() / 3600,
-        'Avg Time Won Trades (hrs)': (data.loc[data['realised_pnl'] > 0, 'end_time'] - data.loc[data['realised_pnl'] > 0, 'start_time']).mean().total_seconds() / 3600,
-        'Avg Time Lost Trades (hrs)': (data.loc[data['realised_pnl'] < 0, 'end_time'] - data.loc[data['realised_pnl'] < 0, 'start_time']).mean().total_seconds() / 3600,
-        'Average Won Trade':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean(),
-        'Average Lost Trade':data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(),
-        'Average Trade Ratio': (
+        'Sharpe Ratio': round(qs.stats.sharpe(returns, period=365), 4),
+        'Annualized Return': round(qs.stats.cagr(returns, period=365), 4),
+        'Max Drawdown': round(qs.stats.max_drawdown(returns), 4),
+        'Volatility': round(qs.stats.volatility(returns, period=365), 4),
+        #'VaR': round(qs.stats.value_at_risk(returns), 4),
+        #'CVaR': round(qs.stats.conditional_value_at_risk(returns), 4),
+        'Total Number of Trades': len(data),
+        '%win': f"{round((data['realised_pnl'] > 0).mean() * 100, 2)}%",
+        'Net Profit': f"{currency}{round(data['realised_pnl'].sum(), 2)}",
+        'Profit Factor': round(
+            data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum() /
+            abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum())
+            if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'), 4
+        ),
+        'Average Trade Net Profit': f"{currency}{round(data['realised_pnl'].mean(), 2)}",
+        'Average Time in Trades': f"{round((data['end_time'] - data['start_time']).mean().total_seconds() / 3600, 2)} hrs",
+        'Avg Time Won Trades': f"{round((data.loc[data['realised_pnl'] > 0, 'end_time'] - data.loc[data['realised_pnl'] > 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
+        'Avg Time Lost Trades': f"{round((data.loc[data['realised_pnl'] < 0, 'end_time'] - data.loc[data['realised_pnl'] < 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
+        'Average Won Trade': f"{currency}{round(data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean(), 2)}",
+        'Average Lost Trade': f"{currency}{round(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(), 2)}",
+        'Average Trade Ratio': round(
             data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean() /
-            data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean()
+            data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(), 4
         )
-        }
-    # Round all numeric values to 2 decimals
-    stats = {k: round(v, 4) if isinstance(v, (int, float)) else v for k, v in stats.items()}
+    }
+    
     return stats
+
 
 if __name__ == '__main__':
 
@@ -225,6 +229,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
