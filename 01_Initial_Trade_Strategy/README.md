@@ -24,7 +24,7 @@ Also evident is the fact that the long side of the trading system is much more p
 
 In terms of the total number of trades taken on both sides, they are nearly the same, with long trades being 222 and short trades being 221. This is because the trading system only reverses positions for now. No exits have been added to the strategy, so the system stays in the market 100% of the time, holding either a long or short position.
 
-So far, the strategy only produces a total number os 443 trades, which might indicate that the probability of achieving profitable results just by accident is high. Total trades around 2000+ might suffice to indicate future performance.
+The strategy only produces a total number of 443 trades, which might indicate that the probability of achieving profitable results just by accident is high because of few number of trades taken (although the test period can be increased to achieve more trades) . Total trades around 2000+ might suffice to indicate future performance.
 
 So far, statistics show that the entry logic would need a bit of tweaking. The probability of maintaining similar performance or behaviour in the future isn't that high. Additionally, the the average profit per trade is only £
 
