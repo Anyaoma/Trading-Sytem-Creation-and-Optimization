@@ -72,7 +72,9 @@ def calculate_statistics(returns, data):
         'Net Profit': data['realised_pnl'].sum(),
         'Profit Factor':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum()/abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'),
         'Average Trade Net Proft': data['realised_pnl'].mean(),
-        'Average Time in Trades': (data['end_time']- data['start_time']).mean(),
+        'Average Time in Trades': (data['end_time']- data['start_time']).mean().total_seconds() / 3600,
+        'Avg Time Winning Trades (hrs)': (data.loc[data['realised_pnl'] > 0, 'end_time'] - data.loc[data['realised_pnl'] > 0, 'start_time']).mean().total_seconds() / 3600,
+        'Avg Time Losing Trades (hrs)': (data.loc[data['realised_pnl'] < 0, 'end_time'] - data.loc[data['realised_pnl'] < 0, 'start_time']).mean().total_seconds() / 3600,
         'Average Winning Trade':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean(),
         'Average Losing Trade':data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(),
         'Average Trade Ratio': (
@@ -223,6 +225,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
