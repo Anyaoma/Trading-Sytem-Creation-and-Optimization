@@ -65,8 +65,8 @@ def calculate_statistics(returns, data):
         'Annualized Return': qs.stats.cagr(returns),
         'Max Drawdown': qs.stats.max_drawdown(returns),
         'Volatility': qs.stats.volatility(returns),
-        'VaR': qs.stats.value_at_risk(returns),
-        'CVaR': qs.stats.conditional_value_at_risk(returns),
+        #'VaR': qs.stats.value_at_risk(returns),
+        #'CVaR': qs.stats.conditional_value_at_risk(returns),
         '%win': (data['realised_pnl'] > 0).mean(),
         'Net Profit': data['realised_pnl'].sum(),
         'Profit Factor':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum()/abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'),
@@ -222,6 +222,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
