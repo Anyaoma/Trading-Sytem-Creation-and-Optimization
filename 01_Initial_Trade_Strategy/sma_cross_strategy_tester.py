@@ -68,7 +68,7 @@ def calculate_statistics(returns, data):
         #'VaR': qs.stats.value_at_risk(returns),
         #'CVaR': qs.stats.conditional_value_at_risk(returns),
         'Total Number of Trades':len(data),
-        '%win': (data['realised_pnl'] > 0).mean(),
+        '%win': f'{(data['realised_pnl'] > 0).mean()}%',
         'Net Profit': data['realised_pnl'].sum(),
         'Profit Factor':data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum()/abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'),
         'Average Trade Net Proft': data['realised_pnl'].mean(),
@@ -225,6 +225,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
