@@ -164,6 +164,9 @@ if __name__ == '__main__':
         value=20, 
         step=1
     )
+
+    ADD_CLOSE_PRICE = st.sidebar.checkbox(label="Add Close Price", value=False)
+
     #add a session for backytest controls
     st.sidebar.header("Backtest Controls")
     risk_percent = st.sidebar.number_input(
@@ -218,14 +221,18 @@ if __name__ == '__main__':
     fig = px.line(result_df, x='end_time', y='cumulative_gain',color='symbol',title='Cumulative Gain and Close Price')
 
     # Add close price as secondary y-axis
-    fig.add_scatter(x=data['time'],y=data['close'],mode='lines',name='Close Price',line=dict(color='black', dash='dot'),yaxis='y2')
-    fig.update_layout(
-    yaxis=dict(title='Cumulative Gain'),
-    yaxis2=dict(title='Close Price', overlaying='y', side='right'),
-    xaxis=dict(title='Time'))
+    if ADD_CLOSE_PRICE:
+        fig.add_scatter(x=data['time'],y=data['close'],mode='lines',name='Close Price',line=dict(color='black', dash='dot'),yaxis='y2')
+        fig.update_layout(
+        yaxis=dict(title='Cumulative Gain'),
+        yaxis2=dict(title='Close Price', overlaying='y', side='right'),
+        xaxis=dict(title='Time'))
     
-    st.title('Cumulative Gain & Close Price')
-    st.plotly_chart(fig)
+        st.title('Cumulative Gain & Close Price')
+        st.plotly_chart(fig)
+    else:
+        st.title('Cumulative Gain')
+        st.plotly_chart(fig)
 
     #create data columns for drawdown calculation
     plot_data = result_df.copy()
@@ -238,7 +245,7 @@ if __name__ == '__main__':
     plot_data = pd.concat([start_row, plot_data], ignore_index=True)
     # ensure end_time is datetime
     plot_data['end_time'] = pd.to_datetime(plot_data['end_time'], errors='coerce')
-    plot_data = plot_data.sort_values('end_time', na_position='first').reset_index(drop=True)
+    #plot_data = plot_data.sort_values('end_time', na_position='first').reset_index(drop=True)
     plot_data['peak_equity_until_t'] = plot_data['account_balance'].cummax()
     plot_data['underwater_drawdown_%'] = -((plot_data['peak_equity_until_t'] - plot_data['account_balance'])/plot_data['peak_equity_until_t'])*100
     
@@ -269,6 +276,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
