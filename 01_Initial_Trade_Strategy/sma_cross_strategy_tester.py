@@ -187,8 +187,6 @@ if __name__ == '__main__':
     data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
     result_df = pd.DataFrame(result_dict)
     result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
-    print(result_df)
-    sys.exit()
 
 
     if 'net_pnl' in result_df.columns:
@@ -247,6 +245,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
