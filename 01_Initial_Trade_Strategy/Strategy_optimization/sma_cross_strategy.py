@@ -89,11 +89,11 @@ class StrategyTester:
     def calculate_slippage_cost(self):
         return self.units * self.slippage_per_share * 2
         
-    def calculate_returns(self,realised_pnl, starting_balance):
-        self.returns = realised_pnl/starting_balance
+    def calculate_returns(self,net_pnl, starting_balance):
+        self.returns = net_pnl/starting_balance
 
-    def update_account_balance(self, realised_pnl):
-        self.amount += realised_pnl
+    def update_account_balance(self, net_pnl):
+        self.amount += net_pnl
 
     def run_test(self):
         print('run_test...')
@@ -105,13 +105,15 @@ class StrategyTester:
                 if not self.open_trade.running: #if trade is closed
                     commission_cost = self.calculate_commission_cost()
                     slippage_cost = self.calculate_slippage_cost()
-                    realised_pnl = self.units * self.open_trade.price_difference - (commission_cost + slippage_cost)
+                    gross_pnl = self.units * self.open_trade.price_difference
+                    net_pnl = gross_pnl - (commission_cost + slippage_cost)
                     starting_balance = self.amount
-                    self.calculate_returns(realised_pnl,starting_balance)
-                    self.update_account_balance(realised_pnl)
+                    self.calculate_returns(net_pnl,starting_balance)
+                    self.update_account_balance(net_pnl)
                     
                     self.open_trade.account_balance = round(self.amount,2)
-                    self.open_trade.realised_pnl = round(realised_pnl,2)
+                    self.open_trade.net_pnl = round(net_pnl,2)
+                    self.gross_pnl = round(gross_pnl,2)
                     self.open_trade.returns = round(self.returns,5)
                     pnl_list.append(round(realised_pnl,2))
                     self.open_trade.running_pnl = pnl_list
@@ -145,3 +147,4 @@ class StrategyTester:
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
 
         return self.df_results
+
