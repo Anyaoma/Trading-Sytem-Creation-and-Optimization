@@ -254,9 +254,9 @@ if __name__ == '__main__':
     #Drawdown plot
     fig1 = px.area(plot_data,x="end_time",y="underwater_drawdown_%",title="Drawdown (%)",)
     # Format axis
-    fig1.update_traces(line=dict(color="black"))
-    fig1.update_traces(marker=dict(color="red"), selector=dict(type="scatter"))
-    fig1.update_layout(yaxis_title="Drawdown (%)",xaxis_title="Date",yaxis=dict(autorange=True),showlegend=False)
+    #fig1.update_traces(line=dict(color="black"))
+    #fig1.update_traces(marker=dict(color="red"), selector=dict(type="scatter"))
+    #fig1.update_layout(yaxis_title="Drawdown (%)",xaxis_title="Date",yaxis=dict(autorange=True),showlegend=False)
     #st.title('Underwater Drawdown')
     st.plotly_chart(fig1)
 
@@ -278,6 +278,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
