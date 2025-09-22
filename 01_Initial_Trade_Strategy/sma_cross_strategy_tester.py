@@ -51,10 +51,10 @@ def load_data(start, end, symbol, time_frame):
     ohlc_data = deepcopy(data_df)
     return ohlc_data
 
-def run_strategy(symbol, start, end, time_frame='15Min',risk_percent=0.5, fast_sma=10, slow_sma=20, lookback=10):
+def run_strategy(symbol, start, end, time_frame='15Min',risk_percent=0.5, fast_sma=10, slow_sma=20, lookback=10,add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
     orig_data = load_data(start, end, symbol, time_frame)
     data = apply_properties(orig_data, symbol,fast_sma,slow_sma, lookback)
-    st = StrategyTester(data, sma_crossover_high_low_signal,risk_percent)
+    st = StrategyTester(data, sma_crossover_high_low_signal,risk_percent,add_comm_slipp, commission_per_share, slippage_per_share)
     st.run_test()
     return data, st.df_results
 
@@ -112,8 +112,29 @@ if __name__ == '__main__':
     # Define the part of the sidebar used for tuning the details of the technical analysis
     st.sidebar.header("Technical Analysis Parameters")
     ADD_SLIPPAGE_AND_COMMISSION = st.sidebar.checkbox(label="Add Slippage & Commission", value=False)
-    
 
+    if ADD_SLIPPAGE_AND_COMMISSION:
+        add_comm = st.sidebar.expander("Commission Per Share")
+        comm_per_share = add_comm.number_input(
+        label="Commission Per Share", 
+        min_value=0.01, 
+        max_value=0.09, 
+        value=0.05, 
+        step=0.01)
+
+        add_slipp = st.sidebar.expander("Slippage Per Share")
+        slipp_per_share = add_slipp.number_input(
+        label="Slippage Per Share", 
+        min_value=0.01, 
+        max_value=0.09, 
+        value=0.03, 
+        step=0.01)
+
+    else:
+        comm_per_share = 0.0
+        slipp_per_share = 0.0
+        
+        
     # Add the expander with parameters of the SMA
     fast_sma = st.sidebar.expander("FAST SMA")
     #rsi_flag = exp_rsi.checkbox(label="Add RSI")
@@ -127,7 +148,6 @@ if __name__ == '__main__':
 
     # Add the expander with parameters of the SMA
     slow_sma = st.sidebar.expander("SLOW SMA")
-    #rsi_flag = exp_rsi.checkbox(label="Add RSI")
     slow_sma_value = slow_sma.number_input(
         label="SLOW SMA VALUE", 
         min_value=5, 
@@ -138,7 +158,6 @@ if __name__ == '__main__':
 
     # Add the expander with parameters of the lookback parameter
     lookback = st.sidebar.expander("LOOKBACK")
-    #rsi_flag = exp_rsi.checkbox(label="Add RSI")
     lookback_value = lookback.number_input(
         label="LOOKBACK VALUE", 
         min_value=5, 
@@ -166,7 +185,7 @@ if __name__ == '__main__':
     #create a list and return the result of each strategy by asset
     #results = []
     #for p in column_to_show:
-    data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value)
+    data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
     result_df = pd.DataFrame(result_dict)
     result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
 
@@ -227,6 +246,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
