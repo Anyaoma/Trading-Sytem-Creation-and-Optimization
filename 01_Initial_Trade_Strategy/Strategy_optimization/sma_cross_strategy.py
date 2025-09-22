@@ -115,7 +115,7 @@ class StrategyTester:
                     self.open_trade.net_pnl = round(net_pnl,2)
                     self.gross_pnl = round(gross_pnl,2)
                     self.open_trade.returns = round(self.returns,5)
-                    pnl_list.append(round(realised_pnl,2))
+                    pnl_list.append(round(net_pnl,2))
                     self.open_trade.running_pnl = pnl_list
                     self.closed_trades.append(self.open_trade)
                     
@@ -147,4 +147,5 @@ class StrategyTester:
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
 
         return self.df_results
+
 
