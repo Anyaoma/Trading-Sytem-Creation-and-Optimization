@@ -105,12 +105,14 @@ class StrategyTester:
                 if not self.open_trade.running: #if trade is closed
                     commission_cost = self.calculate_commission_cost()
                     slippage_cost = self.calculate_slippage_cost()
-                    net_pnl = self.units * self.open_trade.price_difference - (commission_cost + slippage_cost)
+                    gross_pnl = self.units * self.open_trade.price_difference
+                    net_pnl = gross_pnl - (commission_cost + slippage_cost)
                     starting_balance = self.amount
                     self.calculate_returns(net_pnl,starting_balance)
                     self.update_account_balance(net_pnl)
                     
                     self.open_trade.account_balance = round(self.amount,2)
+                    self.open_trade.gross_pnl = round(gross_pnl,2)
                     self.open_trade.net_pnl = round(net_pnl,2)
                     self.open_trade.returns = round(self.returns,5)
                     pnl_list.append(round(net_pnl,2))
@@ -145,6 +147,7 @@ class StrategyTester:
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
 
         return self.df_results
+
 
 
 
