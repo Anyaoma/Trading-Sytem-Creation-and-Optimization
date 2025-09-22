@@ -1,4 +1,6 @@
 ## Net gain: Calculation after adding Commission and Slippage
 
 <img width="1917" height="922" alt="image" src="https://github.com/user-attachments/assets/daa8a7cc-837c-4b2c-b2d6-618c614386d0" />
+<img width="1918" height="788" alt="image" src="https://github.com/user-attachments/assets/46f5a2b9-f41b-49c0-ac60-5172d7483358" />
+
 
