@@ -48,7 +48,7 @@ class Trade:
 
 class StrategyTester:
 
-    def __init__(self, df:pd.DataFrame, trade_signal,  risk_percent):
+    def __init__(self, df:pd.DataFrame, trade_signal,  risk_percent, add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
             self.data = df.copy()
             self.trade_signal = trade_signal
             self.risk_percent = risk_percent
@@ -60,6 +60,13 @@ class StrategyTester:
             self.realised_pnl = []
             self.closed_trades = []
             self.open_trade = None
+
+            if add_comm_slipp:
+                self.commission_per_share = commission_per_share
+                self.slippage_per_share = slippage_per_share
+            else:
+                self.commission_per_share = 0.0
+                self.slippage_per_share = 0.00
 
             self.prepare_data()
 
@@ -76,11 +83,17 @@ class StrategyTester:
         self.calculate_risk_amount()
         self.units = self.risk_amount/row.next_open
 
+    def calculate_commission_cost(self):
+        return self.units * self.commission_per_share * 2
+
+    def calculate_slippage_cost(self):
+        return self.units * self.slippage_per_share * 2
+        
     def calculate_returns(self,realised_pnl, starting_balance):
         self.returns = realised_pnl/starting_balance
 
-    def update_account_balance(self, obj):
-        self.amount += self.units * obj.price_difference
+    def update_account_balance(self, realised_pnl):
+        self.amount += realised_pnl
 
     def run_test(self):
         print('run_test...')
@@ -90,10 +103,12 @@ class StrategyTester:
                 action = self.open_trade.update_trade(row)
 
                 if not self.open_trade.running: #if trade is closed
-                    realised_pnl = self.units * self.open_trade.price_difference
+                    commission_cost = self.calculate_commission_cost()
+                    slippage_cost = self.calculate_slippage_cost()
+                    realised_pnl = self.units * self.open_trade.price_difference - (commission_cost + slippage_cost)
                     starting_balance = self.amount
                     self.calculate_returns(realised_pnl,starting_balance)
-                    self.update_account_balance(self.open_trade)
+                    self.update_account_balance(realised_pnl)
                     
                     self.open_trade.account_balance = round(self.amount,2)
                     self.open_trade.realised_pnl = round(realised_pnl,2)
@@ -128,4 +143,5 @@ class StrategyTester:
           # results DataFrame
         #self.df_results = pd.DataFrame([vars(t) for t in self.closed_trades])
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
+
         return self.df_results
