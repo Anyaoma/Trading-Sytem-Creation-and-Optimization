@@ -245,9 +245,10 @@ if __name__ == '__main__':
     plot_data = pd.concat([start_row, plot_data], ignore_index=True)
     # ensure end_time is datetime
     plot_data['end_time'] = pd.to_datetime(plot_data['end_time'], errors='coerce')
-    #plot_data = plot_data.sort_values('end_time', na_position='first').reset_index(drop=True)
+    plot_data = plot_data.sort_values('end_time', na_position='first').reset_index(drop=True)
     plot_data['peak_equity_until_t'] = plot_data['account_balance'].cummax()
     plot_data['underwater_drawdown_%'] = -((plot_data['peak_equity_until_t'] - plot_data['account_balance'])/plot_data['peak_equity_until_t'])*100
+    plot_data = plot_data.iloc[1:].reset_index(drop=True)
     
     #Drawdown plot
     fig1 = px.area(plot_data,x="end_time",y="underwater_drawdown_%",title="Drawdown (%)",)
@@ -276,6 +277,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
