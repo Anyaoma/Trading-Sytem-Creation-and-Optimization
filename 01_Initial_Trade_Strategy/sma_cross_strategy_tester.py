@@ -137,12 +137,11 @@ if __name__ == '__main__':
         
     # Add the expander with parameters of the SMA
     fast_sma = st.sidebar.expander("FAST SMA")
-    #rsi_flag = exp_rsi.checkbox(label="Add RSI")
     fast_sma_value = fast_sma.number_input(
         label="FAST SMA VALUE", 
         min_value=3, 
         max_value=15, 
-        value=10, 
+        value=5, 
         step=1
     )
 
@@ -152,7 +151,7 @@ if __name__ == '__main__':
         label="SLOW SMA VALUE", 
         min_value=5, 
         max_value=100, 
-        value=20, 
+        value=10, 
         step=1
     )
 
@@ -162,7 +161,7 @@ if __name__ == '__main__':
         label="LOOKBACK VALUE", 
         min_value=5, 
         max_value=100, 
-        value=10, 
+        value=20, 
         step=1
     )
     #add a session for backytest controls
@@ -246,6 +245,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
