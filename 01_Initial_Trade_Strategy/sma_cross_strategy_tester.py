@@ -216,18 +216,39 @@ if __name__ == '__main__':
 
     # Create a Plotly figure
     fig = px.line(result_df, x='end_time', y='cumulative_gain',color='symbol',title='Cumulative Gain and Close Price')
+
     # Add close price as secondary y-axis
     fig.add_scatter(x=data['time'],y=data['close'],mode='lines',name='Close Price',line=dict(color='black', dash='dot'),yaxis='y2')
     fig.update_layout(
     yaxis=dict(title='Cumulative Gain'),
     yaxis2=dict(title='Close Price', overlaying='y', side='right'),
-    xaxis=dict(title='Time')
-)
-
-    # Streamlit app
+    xaxis=dict(title='Time'))
+    
     st.title('Cumulative Gain & Close Price')
     st.plotly_chart(fig)
 
+    #create data columns for drawdown calculation
+    plot_data = result_df.copy()
+    # create the starting balance row
+    start_row  = pd.DataFrame({
+    'running': [None],'symbol': [None],'sma_signal': [None],'open_price': [None],'end_time': [None],'start_time': [None],
+        'risk_amount': [None],'close_price': [None],'price_difference': [None],'result': [None],'account_balance': [100000],
+        'gross_pnl': [0],'commission_cost': [0],'slippage_cost': [0],'net_pnl': [0],'returns': [0],'running_pnl': [0],'cumulative_gain': [0]})
+    # concatenate start row at the top
+    plot_data = pd.concat([start_row, plot_data], ignore_index=True)
+    plot_data['peak_equity_until_t] = plot_data['account_balance'].cummax()
+    plot_data['underwater_drawdown_%'] = (plot_data['peak_equity_until_t'] - plot_data['account_balance'])/plot_data['peak_equity_until_t']
+    
+    #Drawdown plot
+    fig1 = px.area(plot_data,x="end_time",y="underwater_drawdown_%",title="Drawdown (%)",)
+    # Format axis
+    fig1.update_traces(line=dict(color="black"))
+    fig1.update_traces(marker=dict(color="red"), selector=dict(type="scatter"))
+    fig1.update_layout(yaxis_title="Drawdown (%)",xaxis_title="Date",yaxis=dict(autorange=True),showlegend=False)
+    #st.title('Underwater Drawdown')
+    st.plotly_chart(fig1)
+
+    
     #create table for backtest result
     results_final = {}
     for signal in result_df.sma_signal.unique():
@@ -245,6 +266,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
