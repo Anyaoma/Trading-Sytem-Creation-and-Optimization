@@ -189,8 +189,8 @@ if __name__ == '__main__':
     result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
 
 
-    if 'realised_pnl' in result_df.columns:
-        result_df['cumulative_gain'] = result_df['realised_pnl'].cumsum().round(2)
+    if 'net_pnl' in result_df.columns:
+        result_df['cumulative_gain'] = result_df['net_pnl'].cumsum().round(2)
 
 
     #make the datafram available on the site
@@ -245,6 +245,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
