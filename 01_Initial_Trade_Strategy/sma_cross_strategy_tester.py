@@ -68,22 +68,22 @@ def calculate_statistics(returns, data, currency='£'):
         #'VaR': round(qs.stats.value_at_risk(returns), 4),
         #'CVaR': round(qs.stats.conditional_value_at_risk(returns), 4),
         'Total Number of Trades': len(data),
-        '%win': f"{round((data['realised_pnl'] > 0).mean() * 100, 2)}%",
-        'Net Profit': f"{currency}{round(data['realised_pnl'].sum(), 2)}",
+        '%win': f"{round((data['net_pnl'] > 0).mean() * 100, 2)}%",
+        'Net Profit': f"{currency}{round(data['net_pnl'].sum(), 2)}",
         'Profit Factor': round(
-            data.loc[data['realised_pnl'] > 0, 'realised_pnl'].sum() /
-            abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum())
-            if abs(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].sum()) != 0 else float('inf'), 4
+            data.loc[data['net_pnl'] > 0, 'net_pnl'].sum() /
+            abs(data.loc[data['net_pnl'] < 0, 'net_pnl'].sum())
+            if abs(data.loc[data['net_pnl'] < 0, 'net_pnl'].sum()) != 0 else float('inf'), 4
         ),
-        'Average Trade Net Profit': f"{currency}{round(data['realised_pnl'].mean(), 2)}",
+        'Average Trade Net Profit': f"{currency}{round(data['net_pnl'].mean(), 2)}",
         'Average Time in Trades': f"{round((data['end_time'] - data['start_time']).mean().total_seconds() / 3600, 2)} hrs",
-        'Avg Time Won Trades': f"{round((data.loc[data['realised_pnl'] > 0, 'end_time'] - data.loc[data['realised_pnl'] > 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
-        'Avg Time Lost Trades': f"{round((data.loc[data['realised_pnl'] < 0, 'end_time'] - data.loc[data['realised_pnl'] < 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
-        'Average Won Trade': f"{currency}{round(data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean(), 2)}",
-        'Average Lost Trade': f"{currency}{round(data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(), 2)}",
+        'Avg Time Won Trades': f"{round((data.loc[data['net_pnl'] > 0, 'end_time'] - data.loc[data['net_pnl'] > 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
+        'Avg Time Lost Trades': f"{round((data.loc[data['net_pnl'] < 0, 'end_time'] - data.loc[data['net_pnl'] < 0, 'start_time']).mean().total_seconds() / 3600, 2)} hrs",
+        'Average Won Trade': f"{currency}{round(data.loc[data['net_pnl'] > 0, 'net_pnl'].mean(), 2)}",
+        'Average Lost Trade': f"{currency}{round(data.loc[data['net_pnl'] < 0, 'net_pnl'].abs().mean(), 2)}",
         'Average Trade Ratio': round(
-            data.loc[data['realised_pnl'] > 0, 'realised_pnl'].mean() /
-            data.loc[data['realised_pnl'] < 0, 'realised_pnl'].abs().mean(), 4
+            data.loc[data['net_pnl'] > 0, 'net_pnl'].mean() /
+            data.loc[data['net_pnl'] < 0, 'net_pnl'].abs().mean(), 4
         )
     }
     
@@ -245,6 +245,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
