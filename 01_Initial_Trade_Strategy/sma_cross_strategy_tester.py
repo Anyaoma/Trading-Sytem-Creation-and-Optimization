@@ -231,13 +231,16 @@ if __name__ == '__main__':
     plot_data = result_df.copy()
     # create the starting balance row
     start_row  = pd.DataFrame({
-    'running': [None],'symbol': [None],'sma_signal': [None],'open_price': [None],'end_time': [None],'start_time': [None],
-        'risk_amount': [None],'close_price': [None],'price_difference': [None],'result': [None],'account_balance': [100000],
-        'gross_pnl': [0],'commission_cost': [0],'slippage_cost': [0],'net_pnl': [0],'returns': [0],'running_pnl': [0],'cumulative_gain': [0]})
+    'running': [None],'symbol': [None],'sma_signal': [None],'open_price': [None],'end_time': [pd.NaT],'start_time': [pd.NaT],
+        'risk_amount': [None],'close_price': [None],'price_difference': [None],'result': [None],'account_balance': [100000.0],
+        'gross_pnl': [0.0],'commission_cost': [0.0],'slippage_cost': [0.0],'net_pnl': [0.0],'returns': [0.0],'running_pnl': [0.0],'cumulative_gain': [0.0]})
     # concatenate start row at the top
     plot_data = pd.concat([start_row, plot_data], ignore_index=True)
+    # ensure end_time is datetime
+    plot_data['end_time'] = pd.to_datetime(plot_data['end_time'], errors='coerce')
+    plot_data = plot_data.sort_values('end_time', na_position='first').reset_index(drop=True)
     plot_data['peak_equity_until_t] = plot_data['account_balance'].cummax()
-    plot_data['underwater_drawdown_%'] = (plot_data['peak_equity_until_t'] - plot_data['account_balance'])/plot_data['peak_equity_until_t']
+    plot_data['underwater_drawdown_%'] = -((plot_data['peak_equity_until_t'] - plot_data['account_balance'])/plot_data['peak_equity_until_t'])*100
     
     #Drawdown plot
     fig1 = px.area(plot_data,x="end_time",y="underwater_drawdown_%",title="Drawdown (%)",)
@@ -266,6 +269,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
