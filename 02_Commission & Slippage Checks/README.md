@@ -25,4 +25,5 @@ The detailed equity curve and drawdown graph in fig.2.0 and fig.2.1 show the res
 
 The result of this trading system seems to be very underwhelming. In the current state of the system, one is far from being profitable on the Google stock. However, it could be that the arbitrarily chosen parameters of the system (fast sma, slow sma, and lookback values) might not be a good fit; they could be suitable or not. So the key question to answer is; is this trading system useless overall, or does it just suffer from poor parameter inputs. To answer this question, we perform more system test like the ones shown in section 1(01_Initial_Trade_Strategy)  will be performed for different input parameters. This will be performed in the next section (03_Variation of Input Parameters), where I also detail specifics to look out for and pitfalls to avoid.
 
-
+## Link to Dashboard
+https://trading-sytem-creation-and-optimization.streamlit.app/
