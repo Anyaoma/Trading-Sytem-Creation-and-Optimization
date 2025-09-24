@@ -8,7 +8,7 @@
 <img width="1918" height="788" alt="image" src="https://github.com/user-attachments/assets/46f5a2b9-f41b-49c0-ac60-5172d7483358" />
 
 
-On average, the cost of commission is £5, and that of slippage is £4(three pips per stock) per round turn, which, when applied and accounted for within the trading system results in a negative average trade net profit of -£0.91
+On average, the cost of commission is £5, and that of slippage is £4(three pips per stock) per round turn, which, when applied and accounted for within the trading system results in a negative average trade net profit of -£0.91 as identified in fig.2.3.
 
 ## Before Commission and Slippage:
 #### figure 2.2: Trading system metrics before commission and slippage cost
@@ -21,5 +21,5 @@ On average, the cost of commission is £5, and that of slippage is £4(three pip
 <img width="1452" height="917" alt="image" src="https://github.com/user-attachments/assets/97a05736-c285-4c41-a20f-11e3c48f99d4" />
 
 
-The detailed equity curve and drawdown graph above show the result of a more realistic calculation
+The detailed equity curve and drawdown graph in fig.2.0 and fig.2.1 show the result of a more realistic application of the trading system. The equity curve shows more oscillations than before and the drawdown is up to 
 
