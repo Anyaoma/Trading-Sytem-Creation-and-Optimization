@@ -31,5 +31,7 @@ lookback value = 10
 ## The Result
 <img width="1907" height="907" alt="image" src="https://github.com/user-attachments/assets/70a975d0-9ecb-4627-bf66-1623808f691e" />
 <img width="1917" height="900" alt="image" src="https://github.com/user-attachments/assets/4b096c18-f9d2-494e-b906-eed3684d6334" />
+<img width="1453" height="885" alt="image" src="https://github.com/user-attachments/assets/61543e01-6162-4610-ae73-62d68f05a222" />
+
 
 
