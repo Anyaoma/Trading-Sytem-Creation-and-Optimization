@@ -140,7 +140,7 @@ if __name__ == '__main__':
     fast_sma_value = fast_sma.number_input(
         label="FAST SMA VALUE", 
         min_value=3, 
-        max_value=15, 
+        max_value=20, 
         value=5, 
         step=1
     )
@@ -187,10 +187,12 @@ if __name__ == '__main__':
     #create a list and return the result of each strategy by asset
     #results = []
     #for p in column_to_show:
-    data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
-    result_df = pd.DataFrame(result_dict)
-    result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
-
+    if fast_sma_value < slow_sma_value:
+        data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
+        result_df = pd.DataFrame(result_dict)
+        result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
+    else:
+        st.error("⚠️ Fast SMA must be **smaller** than Slow SMA. Please adjust the values in the sidebar.")
 
     if 'net_pnl' in result_df.columns:
         result_df['cumulative_gain'] = result_df['net_pnl'].cumsum().round(2)
@@ -279,6 +281,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
