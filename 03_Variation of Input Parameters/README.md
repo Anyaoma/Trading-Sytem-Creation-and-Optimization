@@ -20,11 +20,16 @@ The goal of optimised strategies is to produce parameters with the best results 
 <img width="1737" height="580" alt="image" src="https://github.com/user-attachments/assets/b8c2e3c4-7212-4301-9124-7f80e53ecadf" />
 
 
-Starting from index 584 until 590, the strategy produced results in this order; £1559.47, £1077.51, £1141.02, -£102.74, £2329.85, £374.29, £242.56. For these ones the sma values for fast and slow are within the range 16 & 17 for fast sma and 18,19,20 for slow sma, while the lookback period alternates between 10 and 20. Unfortunately, this isnt the perfect scenario, but somewhat close. So we choose the parameter values as follows:
+Starting from index 584 until 590, the strategy produced results in this order; £1559.47, £1077.51, £1141.02, -£102.74, £2329.85, £374.29, £242.56. For these ones the sma values for fast and slow are within the range 16 & 17 for fast sma and 18,19,20 for slow sma, while the lookback period alternates between 10 and 20. Unfortunately, this isn't the perfect scenario, but somewhat close. So we choose the parameter values as follows:
 
 fast sma value = 17
 
 slow sma value = 20
 
 lookback value = 10
+
+## The Result
+<img width="1907" height="907" alt="image" src="https://github.com/user-attachments/assets/70a975d0-9ecb-4627-bf66-1623808f691e" />
+<img width="1917" height="900" alt="image" src="https://github.com/user-attachments/assets/4b096c18-f9d2-494e-b906-eed3684d6334" />
+
 
