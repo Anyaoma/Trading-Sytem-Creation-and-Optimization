@@ -192,7 +192,11 @@ if __name__ == '__main__':
         result_df = pd.DataFrame(result_dict)
         result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
     else:
-        st.error("⚠️ Fast SMA must be **smaller** than Slow SMA. Please adjust the values in the sidebar.")
+        msg = "⚠️ FAST SMA must be **smaller** than SLOW SMA. Please adjust the values in the sidebar."
+        st.sidebar.error(msg)    # shows the message in the sidebar
+        st.error(msg)            # shows the message in the main page
+        st.info("Change the values in the sidebar — the app will rerun automatically.") 
+        st.stop()   
 
     if 'net_pnl' in result_df.columns:
         result_df['cumulative_gain'] = result_df['net_pnl'].cumsum().round(2)
@@ -281,6 +285,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
