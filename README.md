@@ -4,6 +4,12 @@ This project is set out to showcase how a simple trading strategy, SMA crossover
 
 <img width="1917" height="972" alt="image" src="https://github.com/user-attachments/assets/2cf3dfc7-d029-40c2-89d1-1bf926f96c21" />
 
+## Step 1: Initial Entry Condition
+
+## Step 2: Optimization
+
+## Step 3:
+
 
 
 ## Link to Dashboard 
