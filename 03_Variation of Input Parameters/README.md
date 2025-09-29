@@ -33,5 +33,7 @@ lookback value = 10
 <img width="1917" height="900" alt="image" src="https://github.com/user-attachments/assets/4b096c18-f9d2-494e-b906-eed3684d6334" />
 <img width="1453" height="885" alt="image" src="https://github.com/user-attachments/assets/61543e01-6162-4610-ae73-62d68f05a222" />
 
-With the fast SMA set to 17, the slow SMA set to 20, and the lookback value set to 10, one gets an equity curve on a slightly steadier path than before. This result is confirmed with the underwater drawdown which quickly recovers after every drawdown. The biggest drawdown is 
+With the fast SMA set to 17, the slow SMA set to 20, and the lookback value set to 10, one gets an equity curve on a slightly steadier path than before. This result is confirmed with the underwater drawdown which quickly recovers after every drawdown. The biggest drawdown is 1.56%, which is relatively smaller than 2.7% we achieved earlier in section (2_Commission and slippage) with the non-optimised input parameters (5/10/10).
+
+A closer look at the 
 
