@@ -9,6 +9,9 @@ import pandas as pd
 def process_signal(df:pd.DataFrame, trade_signal):
     df['sma_signal'] = df.apply(trade_signal, axis=1)
     return df
+    
+def in_time_window(row, start_time, end_time):
+    return start_time <= row.time.time() < end_time
 
 
 class Trade:
@@ -48,10 +51,13 @@ class Trade:
 
 class StrategyTester:
 
-    def __init__(self, df:pd.DataFrame, trade_signal,  risk_percent, add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
+    def __init__(self, df:pd.DataFrame, trade_signal,  risk_percent, start_t=None, end_t=None, add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
             self.data = df.copy()
             self.trade_signal = trade_signal
             self.risk_percent = risk_percent
+            self.start_t= start_t
+            self.end_t = end_t
+            pnl_list = []
 
             self.initial_amount = 100000
             self.amount = self.initial_amount
@@ -99,7 +105,7 @@ class StrategyTester:
         print('run_test...')
 
         for _, row in self.data.iterrows():
-            if self.open_trade:
+            if self.open_trade and in_time_window(row, self.start_t, self.end_t):
                 action = self.open_trade.update_trade(row)
 
                 if not self.open_trade.running: #if trade is closed
@@ -135,10 +141,18 @@ class StrategyTester:
                     else:
                         unrealised_pnl = self.units * (self.open_trade.open_price - row.close)
                     pnl_list.append(round(unrealised_pnl,2))
-                #print(pnl_list)
+            
+            elif self.open_trade and not in_time_window(row, self.start_t, self.end_t):
+                if self.open_trade.sma_signal == 'BUY':
+                    unrealised_pnl = self.units * (row.close - self.open_trade.open_price)
+                        
+                else:
+                    unrealised_pnl = self.units * (self.open_trade.open_price - row.close)
+                    pnl_list.append(round(unrealised_pnl,2))
+            
             else:
                 # flat, no open trade
-                if row.sma_signal in ['BUY', 'SELL']:
+                if row.sma_signal in ['BUY', 'SELL'] and in_time_window(row, self.start_t, self.end_t):
                     self.calculate_unit(row)
                     self.open_trade = Trade(row)
                     self.open_trade.risk_amount = round(self.risk_amount,2)
@@ -149,6 +163,7 @@ class StrategyTester:
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
 
         return self.df_results
+
 
 
 
