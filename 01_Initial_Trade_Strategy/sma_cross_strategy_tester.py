@@ -38,23 +38,25 @@ def apply_properties(df:pd.DataFrame, symbol, fast_sma,slow_sma, lookback):
     ohlc_data = ohlc_data.reset_index(drop=True)
     return ohlc_data
 
-def load_data(start, end, symbol, time_frame):
-    start = pd.to_datetime(start).tz_localize("UTC")
-    end = pd.to_datetime(end).tz_localize("UTC")
-    #load_data
+def load_data(start, end, symbol, time_frame='15Min'):
     base_path = os.path.dirname(__file__)  # directory of current script
     file_path = os.path.join(base_path, "Data", f"{symbol}_{time_frame}.pkl")
     data_df = pd.read_pickle(file_path)
     data_df = data_df.reset_index()
+    # Convert data timestamps from UTC to US/Eastern
+    eastern = pytz.timezone('US/Eastern')
+    data_df['time'] = data_df['time'].dt.tz_convert(eastern)
+    start = eastern.localize(pd.Timestamp(start))
+    end   = eastern.localize(pd.Timestamp(end))
     data_df = data_df[(data_df.time>=start)&(data_df.time<end)]
     data_df = data_df.reset_index().drop(columns=['index'])
     ohlc_data = deepcopy(data_df)
     return ohlc_data
 
-def run_strategy(symbol, start, end, time_frame='15Min',risk_percent=0.5, fast_sma=10, slow_sma=20, lookback=10,add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
+def run_strategy(symbol, start, end, start_t, end_t, time_frame='15Min',risk_percent=5, fast_sma=10, slow_sma=20, lookback=10,add_comm_slipp=True, commission_per_share=0.05, slippage_per_share=0.003):
     orig_data = load_data(start, end, symbol, time_frame)
     data = apply_properties(orig_data, symbol,fast_sma,slow_sma, lookback)
-    st = StrategyTester(data, sma_crossover_high_low_signal,risk_percent,add_comm_slipp, commission_per_share, slippage_per_share)
+    st = StrategyTester(data, sma_crossover,risk_percent, start_t, end_t,add_comm_slipp, commission_per_share, slippage_per_share)
     st.run_test()
     return data, st.df_results
 
@@ -111,6 +113,15 @@ if __name__ == '__main__':
 
     # Define the part of the sidebar used for tuning the details of the technical analysis
     st.sidebar.header("Technical Analysis Parameters")
+    
+    # Create time slider for selecting entry window
+    start_t, end_t = st.slider(
+    "Select Trade Entry Time Window",
+    min_value=datetime.time(0, 0),
+    max_value=datetime.time(23, 59),
+    value=(datetime.time(9, 45), datetime.time(13, 15)),  # default range
+    step=datetime.timedelta(minutes=15)  # 15 min step
+)
     ADD_SLIPPAGE_AND_COMMISSION = st.sidebar.checkbox(label="Add Slippage & Commission", value=False)
 
     if ADD_SLIPPAGE_AND_COMMISSION:
@@ -188,7 +199,7 @@ if __name__ == '__main__':
     #results = []
     #for p in column_to_show:
     if fast_sma_value < slow_sma_value:
-        data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07', time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
+        data, result_dict = run_strategy(column_to_show, start='2022-09-07', end='2025-01-07',start_t=start_t, end_t=end_t, time_frame='15Min',risk_percent=risk_decimal, fast_sma=fast_sma_value, slow_sma=slow_sma_value, lookback=lookback_value,add_comm_slipp=ADD_SLIPPAGE_AND_COMMISSION, commission_per_share=comm_per_share, slippage_per_share=slipp_per_share)
         result_df = pd.DataFrame(result_dict)
         result_df = result_df.sort_values(by='start_time').reset_index(drop=True)
     else:
@@ -285,6 +296,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
