@@ -10,10 +10,9 @@ This project is set out to showcase how a simple trading strategy, SMA crossover
 <img width="1495" height="741" alt="image" src="https://github.com/user-attachments/assets/f13022e7-7b01-4545-895c-cbe9590de22a" />
 
 ## Step 2: Adding Commission and Slippage Costs
-
-
-
-
+<img width="1712" height="972" alt="image" src="https://github.com/user-attachments/assets/7e27234c-a007-4b4b-897f-d2c2598bcf3e" />
+<img width="1727" height="627" alt="image" src="https://github.com/user-attachments/assets/2e46c9c4-49b8-45be-aa0c-ca8ecf72b14f" />
+<img width="1503" height="755" alt="image" src="https://github.com/user-attachments/assets/d71b90a7-627b-46a0-95bf-a6d099b27522" />
 
 ## Step 3: Variation of Input Parameters
 <img width="1718" height="963" alt="image" src="https://github.com/user-attachments/assets/2d7214ba-c711-4e67-abf1-994296a5d6ce" />
