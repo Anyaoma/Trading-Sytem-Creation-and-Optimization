@@ -6,6 +6,7 @@ import streamlit as st
 import quantstats as qs
 import plotly.graph_objs as go
 import plotly.express as px
+from datetime import time, timedelta
 from Strategy_optimization.sma_cross_strategy import *
 
 
@@ -117,11 +118,11 @@ if __name__ == '__main__':
     # Create time slider for selecting entry window
     start_t, end_t = st.slider(
     "Select Trade Entry Time Window",
-    min_value=datetime.time(0, 0),
-    max_value=datetime.time(23, 59),
-    value=(datetime.time(9, 45), datetime.time(13, 15)),  # default range
-    step=datetime.timedelta(minutes=15)  # 15 min step
-)
+    min_value=time(0, 0),
+    max_value=time(23, 59),
+    value=(time(9, 30), time(13, 30)),
+    step=timedelta(minutes=15))
+    
     ADD_SLIPPAGE_AND_COMMISSION = st.sidebar.checkbox(label="Add Slippage & Commission", value=False)
 
     if ADD_SLIPPAGE_AND_COMMISSION:
@@ -296,6 +297,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
