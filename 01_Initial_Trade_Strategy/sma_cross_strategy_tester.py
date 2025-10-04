@@ -19,7 +19,7 @@ TIME_FRAME = '15Min' #for this strategy, select either H1 or H4
 def convert_df_to_csv(df):
     return df.to_csv().encode("utf-8")
 
-def sma_crossover_high_low_signal(row):
+def sma_crossover(row):
     if row.fast_sma > row.slow_sma and row.close > row.prev_highest:
         return 'BUY'
     elif row.fast_sma < row.slow_sma and row.close < row.prev_lowest:
@@ -297,6 +297,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
