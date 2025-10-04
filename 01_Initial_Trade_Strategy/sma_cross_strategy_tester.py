@@ -153,7 +153,7 @@ if __name__ == '__main__':
         label="FAST SMA VALUE", 
         min_value=3, 
         max_value=20, 
-        value=5, 
+        value=17, 
         step=1
     )
 
@@ -163,7 +163,7 @@ if __name__ == '__main__':
         label="SLOW SMA VALUE", 
         min_value=5, 
         max_value=100, 
-        value=10, 
+        value=20, 
         step=1
     )
 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
         label="LOOKBACK VALUE", 
         min_value=5, 
         max_value=100, 
-        value=20, 
+        value=10, 
         step=1
     )
 
@@ -297,6 +297,7 @@ if __name__ == '__main__':
     # Display the results in Streamlit
     st.write(f"Backtest Statistics for {column_to_show}:")
     st.dataframe(results_df)  # Use st.table(results_df) for a static table
+
 
 
 
