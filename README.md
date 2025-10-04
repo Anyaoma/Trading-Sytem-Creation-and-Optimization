@@ -4,9 +4,16 @@ This project is set out to showcase how a simple trading strategy, SMA crossover
 
 <img width="1917" height="972" alt="image" src="https://github.com/user-attachments/assets/2cf3dfc7-d029-40c2-89d1-1bf926f96c21" />
 
-## Step 1: Initial Entry Condition
+## Step 1: Initial Entry Condition; No commission and slippage cost added
+<img width="1726" height="915" alt="image" src="https://github.com/user-attachments/assets/f40045b3-53bd-4892-9981-3649988dabfb" />
+<img width="1707" height="602" alt="image" src="https://github.com/user-attachments/assets/820feefb-6ae5-43f0-a0ac-b4cf1889f9ee" />
+<img width="1495" height="741" alt="image" src="https://github.com/user-attachments/assets/f13022e7-7b01-4545-895c-cbe9590de22a" />
 
 ## Step 2: Adding Commission and Slippage Costs
+
+
+
+
 
 ## Step 3: Variation of Input Parameters
 <img width="1718" height="963" alt="image" src="https://github.com/user-attachments/assets/2d7214ba-c711-4e67-abf1-994296a5d6ce" />
