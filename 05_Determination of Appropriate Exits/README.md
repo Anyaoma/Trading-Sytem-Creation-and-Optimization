@@ -1,1 +1,5 @@
+## Determination of Appropriate Exits
+The tool of statistical research will be employed to investigate exits quantitatively. Exits cannot be determined independently from the relative entry, neither can exits points be transferable to different entry logic. It is important that one spends the time to develop suitable exits for the different entry or time scale.  This would involve analysing  all single trades taken in the context of the trading strategy and determining useful stop-levels and profit targets. In other words, it involves analysing the distribution of trades and examining each trade individually.
 
+## The use of Maximum Adverse Excursion (MAE)
+The Maximum Adverse Excursion (MAE) technique is defined as the most intraday price movement against your position. Put differently, it is the lowest open equity during the lifespan of a trade. This tool enables one to evaluate the trading system's individual trades to determine at what dollar or percentage amount to place the protective stop.
