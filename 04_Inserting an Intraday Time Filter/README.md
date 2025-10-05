@@ -11,9 +11,7 @@ Regarding the issue of stability and robustness of input parameters, it is very 
 <img width="1023" height="587" alt="image" src="https://github.com/user-attachments/assets/4bec8687-cb80-4c23-8c71-0f5068d81ea9" />
 
 ## Results with Added Filter
-The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown. The trade counts reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from drawdown. The total net profit reduced from £2329.85 to £19
-
-The average profit per trade is now $128 (including $30 slippage and commissions) compared with the poor $33 which the system had gained before when trading was allowed around the clock. This is an improvement by a factor of four!
+The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown. The trade count reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from drawdown. The total net profit reduced from £2329.85 to £1979.03. In terms of the greatest improvement, these would be the slight increases in profit factor and the Average trade ratio, and the reduction in the maximum drawdown. The profit factor increased from 1.15 to 1.17, while the Average trade ratio from 1.69 to 1.89, very close to 2.
 
 #### Figure 4.2 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
 <img width="1732" height="117" alt="image" src="https://github.com/user-attachments/assets/5830958b-ebcb-46c6-aae2-3775a154b179" />
