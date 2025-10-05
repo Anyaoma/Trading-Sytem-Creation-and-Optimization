@@ -11,18 +11,24 @@ Regarding the issue of stability and robustness of input parameters, it is very 
 <img width="1023" height="587" alt="image" src="https://github.com/user-attachments/assets/4bec8687-cb80-4c23-8c71-0f5068d81ea9" />
 
 ## Results with Added Filter
-The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown. The trade count reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from drawdown. The total net profit reduced from £2329.85 to £1979.03. In terms of the greatest improvement, these would be the slight increases in profit factor and the Average trade ratio, and the reduction in the maximum drawdown. The profit factor increased from 1.15 to 1.17, while the Average trade ratio from 1.69 to 1.89, very close to 2.
+The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown (fig4.4). The trade count reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from a drawdown. The total net profit reduced from £2329.85 to £1979.03. In terms of the greatest improvement, these would be the slight increases in profit factor and the Average trade ratio, and the reduction in the maximum drawdown. The profit factor increased from 1.15 to 1.17, while the Average trade ratio increased from 1.69 to 1.89, very close to 2 (fig4.4).
 
-#### Figure 4.2 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
+So far, the biggest weakness of the trading system is that trade reversals are only allowed in the approximately four-hour trading window. 9:45am - 1:15pm ET. If there is a signal for reversal outside of this range, since the market is closed, the system cannot exit or reverse
+its position. Outside of your trading window, you have to stay in the market for the other 20 hours, regardless of what happens.
+
+Leaving the trading strategy in this form would be dangerous and unacceptable; hence, we can change this situation and extend the trading system by adding exits. This aids in creating not just a profitable trading strategy, but one  that can be controlled in terms of risk. 
+
+#### Figure 4.2 SMA Crossover system with added time filter. Entries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
 <img width="1732" height="117" alt="image" src="https://github.com/user-attachments/assets/5830958b-ebcb-46c6-aae2-3775a154b179" />
 <img width="1915" height="917" alt="image" src="https://github.com/user-attachments/assets/740b7c29-ae32-4d85-a791-cb375e6c869c" />
 
-#### Figure 4.3 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Drawdown curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
+#### Figure 4.3 SMA Crossover system with added time filter. Entries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Drawdown curve of the Google stock, 15-minute bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
 <img width="1918" height="803" alt="image" src="https://github.com/user-attachments/assets/9fa0224c-89c6-4339-99e9-2fc4e07b3d81" />
 
-#### Figure 4.4 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Metrics table of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
+#### Figure 4.4 SMA Crossover system with added time filter. Entries only allowed in the four-hour time window from 9:45 am-1:15 pm ET. Detailed Metrics table of the Google stock, 15-minute bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
 <img width="1515" height="756" alt="image" src="https://github.com/user-attachments/assets/58dbb0da-1b79-4532-bafa-06a75fefdb08" />
 
+The next section for improvement is the 05_Determination of appropriate exits. The risk management apsect of the trading system
 ## Link to Dashboard 
 https://trading-sytem-creation-and-optimization.streamlit.app/
 
