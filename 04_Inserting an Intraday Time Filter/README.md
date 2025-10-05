@@ -11,6 +11,7 @@ Regarding the issue of stability and robustness of input parameters, it is very 
 <img width="1023" height="587" alt="image" src="https://github.com/user-attachments/assets/4bec8687-cb80-4c23-8c71-0f5068d81ea9" />
 
 ## Results with Added Filter
+The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from a 
 
 #### Figure 4.2 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes on average £10 slippage and commission
 <img width="1732" height="117" alt="image" src="https://github.com/user-attachments/assets/5830958b-ebcb-46c6-aae2-3775a154b179" />
