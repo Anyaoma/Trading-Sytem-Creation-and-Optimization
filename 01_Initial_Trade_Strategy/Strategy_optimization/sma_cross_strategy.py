@@ -135,20 +135,24 @@ class StrategyTester:
                         pnl_list = []
         
                 else:
+                    commission_cost = self.calculate_commission_cost()
+                    slippage_cost = self.calculate_slippage_cost()
                     if self.open_trade.sma_signal == 'BUY':
-                        unrealised_pnl = self.units * (row.close - self.open_trade.open_price)
+                        unrealised_pnl = self.units * (row.close - self.open_trade.open_price) - (commission_cost + slippage_cost)
                         
                     else:
-                        unrealised_pnl = self.units * (self.open_trade.open_price - row.close)
+                        unrealised_pnl = self.units * (self.open_trade.open_price - row.close) - (commission_cost + slippage_cost)
                     pnl_list.append(round(unrealised_pnl,2))
             
             elif self.open_trade and not in_time_window(row, self.start_t, self.end_t):
+                commission_cost = self.calculate_commission_cost()
+                slippage_cost = self.calculate_slippage_cost()
                 if self.open_trade.sma_signal == 'BUY':
-                    unrealised_pnl = self.units * (row.close - self.open_trade.open_price)
+                    unrealised_pnl = self.units * (row.close - self.open_trade.open_price) - (commission_cost + slippage_cost)
                         
                 else:
-                    unrealised_pnl = self.units * (self.open_trade.open_price - row.close)
-                    pnl_list.append(round(unrealised_pnl,2))
+                    unrealised_pnl = self.units * (self.open_trade.open_price - row.close) - (commission_cost + slippage_cost)
+                pnl_list.append(round(unrealised_pnl,2))
             
             else:
                 # flat, no open trade
@@ -163,6 +167,7 @@ class StrategyTester:
         self.df_results = pd.DataFrame.from_dict([vars(x) for x in self.closed_trades]) 
 
         return self.df_results
+
 
 
 
