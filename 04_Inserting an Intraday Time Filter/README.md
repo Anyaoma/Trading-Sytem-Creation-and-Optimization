@@ -12,7 +12,7 @@ Regarding the issue of stability and robustness of input parameters, it is very 
 
 ## Results with Added Filter
 
-#### Figure 4.2 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes $5 slippage and commission
+#### Figure 4.2 SMA Crossover system with added time filter. Enteries only allowed in the four-hour time window from 9:45am-1:15pm ET. Detailed Equity curve of the Google stock, 15 minutes bars,  2022-09-07 - 2025-01-07. Optimised input parameters in terms of net profit: SLOW=20, FAST=17, LOOKBACK=10. Test without exits. Back-test includes £10 slippage and commission
 <img width="1732" height="117" alt="image" src="https://github.com/user-attachments/assets/5830958b-ebcb-46c6-aae2-3775a154b179" />
 <img width="1915" height="917" alt="image" src="https://github.com/user-attachments/assets/740b7c29-ae32-4d85-a791-cb375e6c869c" />
 <img width="1918" height="803" alt="image" src="https://github.com/user-attachments/assets/9fa0224c-89c6-4339-99e9-2fc4e07b3d81" />
