@@ -7,7 +7,7 @@ To determine the best trading time, the trading strategy is restricted to a four
 Regarding the issue of stability and robustness of input parameters, it is very important to have a good and broad neighborhood parameters for one's chosen system parameters. This increases the likelihood of conforming to backtest result in real trading. In our case, the neighborhood parameters of the 9:45am to 13:15pm arent the best, they perform quite poorly. However, we can work with this range and optimize further to ascertain if we can produce better results.
 
 
-#### Figure 4.1: Total Net profit as a function of the starting time of the four-hour time window.
+#### Figure 4.1: Total Net profit as a function of the starting time of the four-hour time window. Google stock. 2022-09-07 - 2025-01-07.
 <img width="1023" height="587" alt="image" src="https://github.com/user-attachments/assets/4bec8687-cb80-4c23-8c71-0f5068d81ea9" />
 
 ## Results with Added Filter
