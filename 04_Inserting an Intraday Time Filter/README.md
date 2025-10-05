@@ -11,7 +11,7 @@ Regarding the issue of stability and robustness of input parameters, it is very 
 <img width="1023" height="587" alt="image" src="https://github.com/user-attachments/assets/4bec8687-cb80-4c23-8c71-0f5068d81ea9" />
 
 ## Results with Added Filter
-The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown. The trade counts reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from drawdown. The total net profit reduced from 
+The equity curve has changed slightly due to the time filter applied (fig 4.1). However, the drawdown curve shows the most improvement, as there is an evident reduction from 1.56% to a 1.23% in maximum drawdown. The trade counts reduced to 227 in the whole of 5 years from a count of 390. The system still takes time to recover from drawdown. The total net profit reduced from £2329.85 to £18
 
 The average profit per trade is now $128 (including $30 slippage and commissions) compared with the poor $33 which the system had gained before when trading was allowed around the clock. This is an improvement by a factor of four!
 
