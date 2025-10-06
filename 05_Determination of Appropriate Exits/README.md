@@ -14,4 +14,6 @@ The graph above (fig5.1) shows all 227 trades that were taken within the test pe
 
 <img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/c812f452-311a-4d56-9a98-ac2251684d41" />
 
-With the MAE graph in percentage terms, we are accounting for the fact that the same dollar movement represents a different percentage change depending on the price level of the market.
+With the MAE graph in percentage terms, we are accounting for the fact that the same dollar movement represents a different percentage change depending on the price level of the market. On the left side of fig 5.2, we find more winning trades than losing trades. This can be attributed to the fact that winning trades usually dont suffer such big drawdowns as losing trades. The best trades are ones that go straight for the win without experiencing any negative open equity.
+
+The loss diagonal alo referred toas the characteristic line are all losing trades,which represents the biggest drawdowns.
