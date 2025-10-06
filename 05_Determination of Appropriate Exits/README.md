@@ -16,4 +16,9 @@ The graph above (fig5.1) shows all 227 trades that were taken within the test pe
 
 With the MAE graph in percentage terms, we are accounting for the fact that the same dollar movement represents a different percentage change depending on the price level of the market. On the left side of fig 5.2, we find more winning trades than losing trades. This can be attributed to the fact that winning trades usually dont suffer such big drawdowns as losing trades. The best trades are ones that go straight for the win without experiencing any negative open equity.
 
-The loss diagonal alo referred toas the characteristic line are all losing trades,which represents the biggest drawdowns.
+The loss diagonal alo referred to as the characteristic line are all losing trades, which represent the biggest drawdowns. Beneath this line towards the right side of the graph are trades that suffered drawdowns of over 3.5% from the entry point,very few recovered from this position, while the others completely ended in a loss.
+
+The blue vertical line (fig 5.2) represents a protective stop loss at a distance away from the entry point in order to limit the risk of the trade. On this graph, this vertical line seems to cut all trades that suffer a bigger loss from their entry. This line stops all the trades at 0.3£ of entry price,that eventually ended in a loss.There is also a tradeoff of trades that turned into a profit beyond this point. Going lower than this would lead to cutting trades that recovered from drawdowns into a profit.
+
+## Inserting a Risk Stop Loss
+
