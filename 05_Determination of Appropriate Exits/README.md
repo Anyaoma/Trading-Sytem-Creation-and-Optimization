@@ -9,3 +9,8 @@ The Maximum Adverse Excursion (MAE) technique is defined as the most intraday pr
 <img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/0349e79c-84b0-453b-aa83-f152af0f8b74" />
 
 The graph above (fig5.1) shows all 227 trades that were taken within the test period. For each trade there is the amount of drawdown that occurred in relation to the realised profit or loss. The profitable trades are shown as green up arrows and the losing trades are represented as red down arrows. The graph aids to figure out how much unrealised loss must be incured by a trade before it typically does not recover. In this way the MAE graph tells you when to cut your loss because the risks associated with the trade are no longer justified. This gives one a valuable indication of where to place the protective stop.
+
+#### Figure 5.2: The MAE graph of SMA crossover system in percentage terms after inserting a 0.5% stop loss. Green: Profitable trades, red: Losing trades. System tested Google stocks, 15-minute bars, 21/10/2002–4/7/2008, with entry time window 9.45am – 1.15pm ET. Input parameters SLOW=20, FAST=17, LOOKBACK=10. Without exits, always in the market, including on average £10 slippage and commissions per round turn.
+
+<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/c812f452-311a-4d56-9a98-ac2251684d41" />
+
