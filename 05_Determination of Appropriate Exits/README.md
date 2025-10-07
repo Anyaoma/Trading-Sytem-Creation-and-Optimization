@@ -20,5 +20,9 @@ The loss diagonal alo referred to as the characteristic line are all losing trad
 
 The blue vertical line (fig 5.2) represents a protective stop loss at a distance away from the entry point in order to limit the risk of the trade. On this graph, this vertical line seems to cut all trades that suffer a bigger loss from their entry. This line stops all the trades at 0.3£ of entry price,that eventually ended in a loss.There is also a tradeoff of trades that turned into a profit beyond this point. Going lower than this would lead to cutting trades that recovered from drawdowns into a profit.
 
-## Inserting a Risk Stop Loss
+## Looking for profit targets: Maximum Favourable Excursion (MFE)
+
+#### Figure 5.3: The MFE graph of SMA crossover system in percentage terms after inserting. Green: Profitable trades, red: Losing trades. System tested Google stocks, 15-minute bars, 21/10/2002–4/7/2008, with entry time window 9.45am – 1.15pm ET. Input parameters SLOW=20, FAST=17, LOOKBACK=10. Without exits, always in the market, including on average £10 slippage and commissions per round turn
+<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/e513c0a0-780d-41ab-8cde-00af56dff54b" />
+
 
